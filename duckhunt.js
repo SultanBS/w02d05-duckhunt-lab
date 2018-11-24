@@ -1,17 +1,65 @@
-$(document).ready(function() {
-  // - Unlike a normal closure, we don't have to call it
-  // - jQuery will call it when the page is loaded
 
-  // first lets grab the <body></body>
-  var body = $('body');
+$(document).ready(function () {
 
-  // 1. Can you create a <div> with the class "duck" and name it "duck"
+  var $body = $('body');
 
-  // 2. Next, use setInterval to toggle the "flap" class on the duck every 250 ms (1/4 second)
+  function createDuck() {
 
-  // 3. Fantastic!  Now, let's move the duck using CSS "top" and "left"
+    var $duck = $('<div/>').addClass('duck');
 
-  // 4. Try making the duck move to a different location after 1 second
+    $duck.css({
+      'top': Math.floor(Math.random() * window.innerHeight) + 'px',
+      'left': Math.floor(Math.random() * window.innerWidth) + 'px'
+    })
 
-  // 5. Congratulations!
+    $body.append($duck);
+     setInterval(function () {
+      $duck.toggleClass('flap');
+
+    }, 250);
+
+    var moveF = setInterval(function () {
+      var leftDuck = Math.floor(Math.random() * window.innerWidth);
+      var toptDuck = Math.floor(Math.random() * window.innerHeight);
+
+      $duck.animate({
+        'left': `${leftDuck}px`,
+        'top': `${toptDuck}px`
+      })
+    }, 2000)
+
+    $duck.click(function () {
+      if ($duck.click) {
+        $duck.addClass('shot');
+        clearInterval(moveF);
+        $duck.stop(true, false);
+        setTimeout(function () {
+          $duck.remove();
+          checkWinner();
+        }, 1000)
+      }
+    })
+
+    return $duck;
+  }
+
+  for (var i = 0; i < 5; i++) {
+    var timeM = Math.floor(Math.random() * 2000);
+    setTimeout(createDuck, timeM);
+  }
+
+  function checkWinner() {
+    if ($body.children().length == 0) {
+      alert("Congrats, you've hunt all the ducks!");
+    }
+  }
 })
+
+
+
+
+
+
+
+
+

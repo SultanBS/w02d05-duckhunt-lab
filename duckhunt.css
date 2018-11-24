@@ -19,9 +19,19 @@ body, html {
   background-position: -100px -160px;
   width: 110px;
   height: 115px;
-  transition: top 1s, left 1s;
+  /* transition: top 1s, left 1s; */
 }
 
 .duck.flap {
   background-position: -430px -160px;
+}
+
+.shot{
+
+  background-image: url(images/shot.png);
+  background-position: center;
+  background-size: cover;
+  width: 80px;
+  height: 80px;
+
 }
